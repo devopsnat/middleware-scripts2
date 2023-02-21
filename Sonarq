@@ -34,7 +34,7 @@ sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.3.
 if [ ! -x /usr/bin/unzip ] ;
 then
     echo "installing unzip"
-sudo yum install unzip
+sudo yum install unzip -y
 sudo unzip /opt/sonarqube-9.3.0.51899.zip
 else
     echo "unzip is already installed"
@@ -42,19 +42,16 @@ fi
 
     echo "Changing ownership to user vagrant and starting device..."
 sudo chown -R vagrant:vagrant /opt/sonarqube-9.3.0.51899
-cd /bin/linux-x86-64 
+cd /opt/sonarqube-9.3.0.51899/bin/linux-x86-64
+# ./sonar.sh start
 
-    echo "Start, enable and reload firewall"
-sudo systemctl start firewalld
-sudo systemctl enable firewalld
-sudo systemctl status firewalld
+    echo " Installing firewall... "
+sudo yum install firewalld
     echo "Opening port 9000"
 firewalld-cmd --permanent --add-port=9000/tcp
 firewalld-cmd --reload
 
     echo " starting SonarQube ..."
  ./sonar.sh start
-
-
 
  #now you can paste you ip address in your browser and add port 9000!

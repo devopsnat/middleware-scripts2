@@ -17,7 +17,7 @@ sudo yum install java-11-openjdk-devel -y
 sudo yum install java-11-openjdk -y
 
 echo " Navigating to /opt directory"
-cd /opt
+cd /opt || exit
 
 if [ ! -x /usr/bin/wget ] ;
 then
@@ -41,7 +41,7 @@ fi
     echo "Changing ownership to user vagrant and starting device..."
 sudo chown -R vagrant:vagrant /opt/sonarqube-9.3.0.51899
 cd /opt/sonarqube-9.3.0.51899/bin/linux-x86-64
-# ./sonar.sh start
+#./sonar.sh start
 
  echo " Installing firewall... "
  sudo yum install firewalld
@@ -51,8 +51,5 @@ firewalld-cmd --permanent --add-port=9000/tcp
 firewalld-cmd --reload
 
     echo " You may now start SonarQube"
- #./sonar.sh start
-
-
-
+ 
  #now you can paste you ip address in your browser, don't forget to add 9000!
